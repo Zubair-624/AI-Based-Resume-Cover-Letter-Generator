@@ -27,11 +27,16 @@ public class ResumeService {
         return toUs
     }
 
-    /** Read Operation **/
-    public UserProfile getUserProfile(String email){
-        return userProfileRepository.findUserProfileById(id).
+    public UserProfileDto createUserProfile(UserProfileDto dto) {
+        if (userProfileRepository.existsByEmail(dto.getEmail())) {
+            throw new RuntimeException("User with this email already exists.");
+        }
 
+        UserProfile entity = toEntity(dto);                     // Map DTO → Entity
+        UserProfile saved = userProfileRepository.save(entity); // Save to DB
+        return toDto(saved);                                    // Map Entity → DTO
     }
+
 
     private UserProfile toEntity(UserProfileDto dto) {
         UserProfile entity = new UserProfile();
