@@ -16,4 +16,10 @@ public class CoverLetterDto {
     private String body;
 
     private String closing;
+
+    private String senderName;
+
+    private String senderEmail;
+
+    private String senderPhone;
 }
